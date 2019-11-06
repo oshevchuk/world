@@ -27,10 +27,10 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const t: Animal[] = [];
-    t.push(new Lion());
-    t.push(new Snake());
+    // const t: Animal[] = [];
+    // t.push(new Lion());
+    // t.push(new Snake());
 
-    t.map(el => el.makeSound());
+    // t.map(el => el.makeSound());
   }
 }
