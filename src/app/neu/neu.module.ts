@@ -3,6 +3,7 @@ import { NodeViewComponent } from './components/node-view/node-view.component';
 import { Routes, RouterModule } from '@angular/router';
 import { EmptyComponent } from './components/empty/empty.component';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 const neuRouts: Routes = [
   {
@@ -17,7 +18,8 @@ const neuRouts: Routes = [
   ],
   imports: [
     RouterModule.forRoot(neuRouts),
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     RouterModule,

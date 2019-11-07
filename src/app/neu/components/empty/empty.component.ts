@@ -4,12 +4,14 @@ import * as MathJs from 'mathjs';
 import { Observable, of, Subject, BehaviorSubject, interval, merge, concat, forkJoin, zip } from 'rxjs';
 import { debounceTime, mapTo, distinctUntilChanged, delay, throttleTime, buffer, mergeAll, combineAll, map, flatMap,
   combineLatest } from 'rxjs/operators';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 export class Node {
   bias = 0.001;
   value = 0;
   inputs: number[] = [];
   isBusy = false;
+  lr = 0.5; // learning rate;
 
   weights: number[] = [];
 
@@ -19,12 +21,15 @@ export class Node {
   }
   set PrevNodes(nodes: Node[]) {
     this.prevNodes = nodes;
+    this.prevNodeIds = [];
     this.prevNodes.map(prevNode => {
       prevNode.outNodes.push(this);
+      this.prevNodeIds.push(prevNode.id);
     });
     this.updateInputs();
     this.initWeights();
   }
+  prevNodeIds: number[] = [];
   outNodes: Node[] = [];
 
   constructor(public id: number) {}
@@ -89,20 +94,27 @@ export class EmptyComponent implements OnInit {
 
   isLoading = true;
 
+  inputValue = 0;
+  expectValue = 1;
+  currentError = 0;
+
   constructor() { }
 
   ngOnInit(): void {
     this.initNetwork();
 
-    this.test();
+    // this.test();
   }
 
   test() {
+    this.inputNode.value = this.inputValue;
+
     this.lifeCycleCount++;
     this.startInputs().then(() => {
       this.startHindden().then(() => {
         this.startOutput().then(() => {
-          this.outputNode.activation();
+          // const r = ;
+          this.currentError = this.outputNode.activation() / this.expectValue;
         });
       });
     });
