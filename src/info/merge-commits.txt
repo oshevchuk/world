@@ -1,0 +1,43 @@
+docs:
+https://git-scm.com/book/ru/v1/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B-Git-%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D1%8C-%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8
+
+or help:
+
+Пусть вы хотите склеить последние три коммита (для 13-ти коммитов процесс выглядит аналогично). Для этого есть отличный метод с использованием git rebase. Эта команда позволяет изменять историю коммитов. Алгоритм работы выглядит следующим образом:
+
+Сделайте резервную копию. Это совсем не обязательно, но поможет сохранить нервные клетки, если что-то пойдет не так. Варианты:
+
+Копия каталога с файлами в котором развернут git репозиторий.
+git branch backup или git tag backup в последнем коммите.
+Прочитать справку по командам reflog и reset и знать, что бэкапы уже есть.
+Избавьтесь от незакоммиченных изменений (git add + git commit или git stash или что-то еще).
+
+Выполните git rebase -i HEAD~3. В ответ на это вы получите "диалог" (окно редактирования файла) вида:
+
+pick bcdca61 Second commit
+pick 4643a5f The third commit with cool stuff
+pick e0ca8b9 The last commit
+
+# Rebase 48411de..e0ca8b9 onto 48411de
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+при этом, коммиты указаны в порядке возрастания времени создания (самый нижний -- самый свежий).
+
+В "диалоге" из п.2 вам нужно заменить pick на squash для двух самых свежих коммитов (две нижние строки). В примере выше, это должно выглядеть вот так:
+
+pick bcdca61 Second commit
+squash 4643a5f The third commit with cool stuff
+squash e0ca8b9 The last commit
+
+# Rebase 48411de..e0ca8b9 onto 48411de
+#
+# ...
+После этого вы должны закрыть этот "диалог" (сохранить редактируемый файл). Если для работы с git используется vi (по умолчанию), то это делается последовательным нажатием ESC, вводом :wq и нажатием Enter.
+
+В следующем "диалоге" вам предложат указать заголовок для получившегося коммита.

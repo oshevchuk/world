@@ -1,0 +1,26 @@
+<div class="block" #block>
+  <div class="className" *ngIf="showClassName">
+    <b> {{node.getName()}}</b>
+  </div>
+
+  <span class="id">#{{node.id}}</span>
+
+  <span class="out">Out:<b>[{{node.value | number}}]</b> </span>
+
+  <div class="inputs">
+    <div *ngFor="let in of node.inputs">
+      <b>[{{in | number}}]</b>
+    </div>
+  </div>
+  <div class="weights">
+    <div *ngFor="let weig of node.weights">
+      ({{weig | number}})
+    </div>
+  </div>
+
+  <div class="activation" *ngIf="node.activation">
+    {{node.activation() | number}}
+  </div>
+
+  <div class="status" [class.busy]="node.isBusy"></div>
+</div>

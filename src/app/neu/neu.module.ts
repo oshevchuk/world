@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { NodeViewComponent } from './components/node-view/node-view.component';
 import { Routes, RouterModule } from '@angular/router';
-import { EmptyComponent } from './components/empty.component';
+import { EmptyComponent } from './components/empty/empty.component';
 import { NgModule } from '@angular/core';
 
 const neuRouts: Routes = [
@@ -10,10 +12,12 @@ const neuRouts: Routes = [
 
 @NgModule({
   declarations: [
-    EmptyComponent
+    EmptyComponent,
+    NodeViewComponent
   ],
   imports: [
-    RouterModule.forRoot(neuRouts)
+    RouterModule.forRoot(neuRouts),
+    CommonModule
   ],
   exports: [
     RouterModule,

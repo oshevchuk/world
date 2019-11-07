@@ -1,0 +1,99 @@
+.block{
+  border: 1px solid;
+  // padding: 10px;
+  width: 200px;
+  margin: 15px 0px;
+  position: relative;
+  min-height: 100px;
+  display: flex;
+  // justify-content: space-between;
+}
+
+.id{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  padding: 2px 5px;
+  background-color: rgba(200, 200, 200, 0.7);
+  font-weight: bold;
+}
+
+.out{
+  display: block;
+  position: absolute;
+  top: calc(50% - 8px);
+  right: 0;
+  color: grey;
+  padding-right: 5px;
+
+  b{
+    color: black;
+  }
+}
+
+.className{
+  position: absolute;
+  font-size: 14px;
+  left: 0;
+  top: -16px;
+}
+
+.weights{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 4px; 
+  font-size: 14px;
+}
+
+.inputs{
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 4px; 
+}
+
+.status{
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: lightgrey;
+  position: absolute;
+  top: calc(50% - 10px);
+  left: calc(50% - 10px);
+
+  &.busy{
+    background-color: burlywood;
+  }
+}
+
+.prevNodeIds{
+  position: absolute;
+  top: 0;
+  right: 200px;
+  display: flex;
+  flex-direction: column;
+
+  span{
+    font-size: 10px;
+    line-height: 12px;
+    color: white;
+    display: block;
+    background-color: black;
+    min-width: 10px;
+    text-align: right;
+    padding: 2px 3px;
+    margin-bottom: 1px;
+  }
+}
+
+.activation{
+  font-size: 14px;
+  color: blue;
+  position: absolute;
+  bottom: 0;
+  right: 2px;
+}
