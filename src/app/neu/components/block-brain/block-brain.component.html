@@ -1,0 +1,98 @@
+<!--<p>Life cycle: <b>{{lifeCycleCount}}</b></p>-->
+
+<div class="nodes-content">
+  <div class="input">
+    <app-node-view [node]="inNode" *ngFor="let inNode of inputNodes"></app-node-view>
+  </div>
+  <div class="hidden">
+    <div class="layer">
+      <h4>Hidden Layer #1</h4>
+      <app-node-view [node]="h" [showClassName]="false" *ngFor="let h of hiddenLayer1"></app-node-view>
+    </div>
+    <div class="layer">
+      <h4>Hidden Layer #2</h4>
+      <app-node-view [node]="h" [showClassName]="false" *ngFor="let h of hiddenLayer2"></app-node-view>
+    </div>
+    <div class="layer">
+      <h4>Hidden Layer #3</h4>
+      <app-node-view [node]="h" [showClassName]="false" *ngFor="let h of hiddenLayerType1"></app-node-view>
+    </div>
+  </div>
+  <div class="output">
+    <app-node-view [node]="outNode" *ngFor="let outNode of outputNodes"></app-node-view>
+  </div>
+</div>
+
+<hr>
+
+<div class="window"> 
+  <div class="col-12">
+    <div class="row">    
+      <div class="inputs">
+        <small>In</small>
+        <div>
+          <input type="checkbox" [(ngModel)]="inputs[0]">
+          <input type="checkbox" [(ngModel)]="inputs[1]">
+        </div>
+        <div>
+          <input type="checkbox" [(ngModel)]="inputs[2]">
+          <input type="checkbox" [(ngModel)]="inputs[3]">
+        </div>
+      </div>
+      <div class="inputs">
+        <small>Run</small>
+        <button (click)="test()">Test</button>
+      </div>
+      <div class="inputs">
+        <div>
+          <span>({{answer[0] | number}})</span>
+          <span>({{answer[1] | number}})</span>
+        </div>
+        <div>
+          <span>({{answer[2] | number}})</span>
+          <span>({{answer[3] | number}})</span>
+        </div>
+      </div>
+      <div class="inputs">
+        <small>Exp</small>
+        <div>
+          <input type="checkbox" [(ngModel)]="expect[0]">
+          <input type="checkbox" [(ngModel)]="expect[1]">
+        </div>
+        <div>
+          <input type="checkbox" [(ngModel)]="expect[2]">
+          <input type="checkbox" [(ngModel)]="expect[3]">
+        </div>
+      </div>
+      <div class="inputs">
+        <div>
+          <span>({{errors[0] | number}})</span>
+          <span>({{errors[1] | number}})</span>
+        </div>
+        <div>
+          <span>({{errors[2] | number}})</span>
+          <span>({{errors[3] | number}})</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <label>
+      <input type="checkbox" [(ngModel)]="isLearningMode">
+      Learnin mode
+    </label>
+  </div>
+  <div>
+    training iterations
+    <input type="text" [(ngModel)]="trainIterations">
+  </div>
+  <div>
+    delay:
+    <input type="text" [(ngModel)]="delyTime">
+  </div>
+  <button (click)="train()">Train</button>
+
+</div>
+
+<!--<svg width="500" height="500"><line x1="50" y1="50" x2="350" y2="50" stroke="red"/></svg>-->

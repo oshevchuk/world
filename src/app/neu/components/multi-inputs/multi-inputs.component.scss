@@ -1,0 +1,35 @@
+.nodes-content{
+  display: flex;
+  align-items: center;
+
+  &>div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input{
+    max-width: 250px;
+    width: 25%;
+  }
+  .hidden{
+    max-width: calc(100% - 500px);
+    width: 100%;
+    background-color: #eee;
+  }
+  .output{
+    max-width: 250px;
+    width: 25%;
+  }
+}
+
+.layer{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  h4{
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+  border: 1px dashed blue;
+  padding: 0 15px;
+}

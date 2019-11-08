@@ -1,0 +1,62 @@
+<p>Life cycle: <b>{{lifeCycleCount}}</b></p>
+
+<div class="nodes-content">
+  <div class="input">
+    <app-node-view [node]="inNode" *ngFor="let inNode of inputNodes"></app-node-view>
+  </div>
+  <div class="hidden">
+    <div class="layer">
+      <h4>Hidden Layer #1</h4>
+      <app-node-view [node]="h" [showClassName]="false" *ngFor="let h of hiddenLayer"></app-node-view>
+    </div>
+  </div>
+  <div class="output">
+    <app-node-view [node]="outputNode"></app-node-view>
+  </div>
+</div>
+
+<hr>
+
+<div class="col-6">
+  <div class="row train">
+    <label class="col-6">
+      Input 1:
+      <input type="text" [(ngModel)]="inputValue1">
+    </label>
+    <label class="col-6">
+      Input 2:
+      <input type="text" [(ngModel)]="inputValue2">
+    </label>
+    <label class="col-6">
+      Expect:
+      <input type="text" [(ngModel)]="expectValue">
+    </label>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <span>Current answer: </span> 
+      <b>{{outputNode.value}}</b>
+    </div>
+    <div class="col-6">
+      <span>Current error: </span> 
+      <b>{{currentError}}</b>
+    </div>    
+  </div>
+  <button (click)="test()">test</button>
+  <label>
+    <input type="checkbox" [(ngModel)]="isLearningMode">
+    Learnin mode
+  </label>
+</div>
+<br>
+<div>
+  training iterations
+  <input type="text" [(ngModel)]="trainIterations">
+</div>
+<div>
+  delay:
+  <input type="text" [(ngModel)]="delyTime">
+</div>
+<button (click)="train()">Train</button>
+
+<!--<svg width="500" height="500"><line x1="50" y1="50" x2="350" y2="50" stroke="red"/></svg>-->

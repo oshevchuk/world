@@ -1,8 +1,8 @@
 .block{
   border: 1px solid;
   // padding: 10px;
-  width: 200px;
-  margin: 15px 0px;
+  width: 190px;
+  margin: 10px 0px;
   position: relative;
   min-height: 100px;
   display: flex;
@@ -73,7 +73,7 @@
 .prevNodeIds{
   position: absolute;
   top: 0;
-  right: 200px;
+  right: 190px;
   display: flex;
   flex-direction: column;
 
