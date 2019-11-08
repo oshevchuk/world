@@ -10,17 +10,16 @@ export class NodeViewComponent implements OnInit, AfterViewInit {
   @Input() node: Node;
   @Input() showClassName = true;
 
+  childCount = 0;
+
   @ViewChild('block', {static: false}) block: ElementRef;
 
-  constructor() {
-
-  }
+  constructor() { }
 
   ngOnInit(): void {
-    
+    const n = this.node.PrevNodes ? this.node.PrevNodes.length : 0;
+    this.childCount = n <= 2 ? 1 : n;
   }
 
-  ngAfterViewInit(): void {
-    // console.log(this.block);
-  }
+  ngAfterViewInit(): void { }
 }

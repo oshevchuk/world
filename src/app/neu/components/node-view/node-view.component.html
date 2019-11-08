@@ -1,4 +1,4 @@
-<div class="block" #block>
+<div class="block" #block [style.height]="(childCount * 40) + 'px'">
   <div class="className" *ngIf="showClassName">
     <b> {{node.getName()}}</b>
   </div>
@@ -18,8 +18,11 @@
     </div>
   </div>
 
-  <div class="activation" *ngIf="node.activation">
+  <!--<div class="activation" *ngIf="node.activation">
     {{node.activation() | number}}
+  </div>-->
+  <div class="activation">
+    {{node.ErrorRate | number}}
   </div>
 
   <div class="status" [class.busy]="node.isBusy"></div>

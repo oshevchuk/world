@@ -7,11 +7,28 @@ import { debounceTime, mapTo, distinctUntilChanged, delay, throttleTime, buffer,
 import { FormBuilder, FormControl } from '@angular/forms';
 
 export class Node {
-  bias = 0.001;
+  delayRate = 700;
+
   value = 0;
   inputs: number[] = [];
   isBusy = false;
-  lr = 0.5; // learning rate;
+  learningRate = 0.3;
+
+  private errorRate = 0;
+  set ErrorRate(value: number) {
+    this.errorRate = value;
+    this.weights.forEach((w, i) => {
+      this.weights[i] += this.errorRate * this.learningRate * this.inputs[i];
+    });
+    const prevCount = this.inputs.length && this.inputs.length > 0 ? this.inputs.length : 1;
+    this.PrevNodes.map(pn => {
+      pn.ErrorRate = value / prevCount;
+    });
+    // console.log(this.weights, '::', value, '==', this.inputs);
+  }
+  get ErrorRate() {
+    return this.errorRate;
+  }
 
   weights: number[] = [];
 
@@ -46,7 +63,7 @@ export class Node {
 
     this.isBusy = true;
 
-    const ss = of(true).pipe(delay(800));
+    const ss = of(true).pipe(delay(this.delayRate));
     ss.toPromise().then(r => {
       this.isBusy = false;
     });
@@ -71,7 +88,9 @@ export class Node {
   }
   activation() {}
 }
-class InputNode extends Node { }
+class InputNode extends Node {
+  delayRate = 500;
+}
 class HiddenNode extends Node { }
 
 class OutputNode extends Node {
@@ -79,16 +98,18 @@ class OutputNode extends Node {
     return 1 / (1 + Math.exp(-1 * this.value));
   }
 }
-
+// --------------------------------------------------------------------
 @Component({
   templateUrl: './empty.component.html',
   styleUrls: ['./empty.component.scss']
 })
 export class EmptyComponent implements OnInit {
+  isLearningMode = true;
   uid = 0;
   lifeCycleCount = 0;
 
   inputNode = new InputNode(1);
+  inputNodes: InputNode[] = [];
   hiddenLayer: Node[] = [];
   outputNode = new OutputNode(100);
 
@@ -102,8 +123,6 @@ export class EmptyComponent implements OnInit {
 
   ngOnInit(): void {
     this.initNetwork();
-
-    // this.test();
   }
 
   test() {
@@ -113,8 +132,11 @@ export class EmptyComponent implements OnInit {
     this.startInputs().then(() => {
       this.startHindden().then(() => {
         this.startOutput().then(() => {
-          // const r = ;
-          this.currentError = this.outputNode.activation() / this.expectValue;
+          // this.currentError = this.expectValue - this.outputNode.activation();
+          this.currentError = this.expectValue - this.outputNode.value;
+          if (this.isLearningMode) {
+            this.outputNode.ErrorRate = this.currentError;
+          }
         });
       });
     });
@@ -138,7 +160,7 @@ export class EmptyComponent implements OnInit {
     this.inputNode.value = 1;
 
     this.hiddenLayer = [];
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
       this.hiddenLayer.push(new HiddenNode(10 + i));
     }
 
